@@ -1,0 +1,190 @@
+<!Doctype html>
+<html>
+<head>
+<title>I lygis | Atspėk ritmą | Šešta užduotis</title>
+<meta charset="UTF-8">
+<meta name="description" content="Atspėk ritmą - tai internete veikianti natų mokymosi programėlė - žaidimas vaikams. (I lygis, šešta užduotis)" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="YRFVUc2x2qgaN67i_U3MqUbheScEoiUbwqRToylZgZM" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="icon"  type="image/png" href="images/Trimitas44.png">
+<style>
+body {
+	background-image: url('background/ESBRASS.jpg');
+	
+}
+table{
+background: white;
+border-radius: 20px;
+}
+table, tr, td {
+bborder: solid black 1px;
+bborder-collapse: collapse;
+padding: 10px;
+}
+td{
+text-align: center;
+}
+button{
+padding: 5px;
+}
+</style>
+</head>
+<body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69791602-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div class='container'>
+<table style="table-layout: fixed; border-radius: 20px; max-width: 400px;" class="col-md-4 col-md-offset-4 sol-sm-4 col-xs-12">
+<tr><td align="center" colspan="2"><span style="font-size: 12px; color: grey;">Žaidimas</span><br /><h1 style="font-size: 18px; margin-top: 2px; margin:0px;">Atspėk ritmą</h1><span style="float: right; margin-right: 20px;">6</span></td></tr>
+<tr style="background-color: #ddd;"><td style="height: 5px; margin:0px; padding: 0px;"><a href="uzduotis-5.html">&lt;&lt; Buvusi užduotis</a></td><td style="height: 5px; margin:0px; padding: 0px;"><a href="uzduotis-7.html" style="ddisplay: none;">Kita užduotis &gt;&gt;</a></td></tr>
+<tr><td colspan="2"><img src="images/4-8-8-8-8-4.jpg" width="323" height="180" style="max-width: 100%;" alt="Žaidimas - atspėk ritmą (internetinė progamėle vaikams, šešta užduotis"></td></tr>
+<tr style="height: 100px; background-color: #ddd;"><td><button id="btn_paleisti">Pradėti &gt;&gt;</button></td><td><button id="btn_tap" style="display: none; width:70px; height: 70px:">Pagrok ritmą</button><label id="lbl_natos">&nbsp;</label></td></tr>
+<tr><td colspan="2" align="center"><span><br /><a href ="http://www.orkestras.babtai.lt/mokytis-muzikos">Babtų gimnazijos orkestras &gt;&gt;</a><br /><br /></span><span style="font-size: 10px; color: #999; font-family: 'Times New Roman', serif;">&#169; 2015.11.15 Justinas Straukas</span></td></tr>
+</table>
+</div>
+<script>
+var btn_taptap = document.getElementById("btn_tap");
+var btn_tap = document.getElementById("btn_tap").addEventListener("mousedown", natu_sk);
+var btn_pal= document.getElementById("btn_paleisti");
+var btn_paleisti= document.getElementById("btn_paleisti").addEventListener("click", paleisti_laikmati);
+//var lbl_rodyti_laika = document.getElementById("lbl_rodyti_laika");
+var lbl_natos = document.getElementById("lbl_natos");
+var sk1 = 0;
+var sk2 =0;
+var sk3=0;
+var visos_koordinates = "";
+var natu_sk = 0;
+var butinas_natu_sk = 0;
+var a=[];
+var klaidu_skaicius = 0;
+var timer;
+var natu_seka = ivest_natas();
+//alert('la');
+
+var sk =0;
+ a[0] = 0;
+for(i=0; i<natu_seka.length-1; i++){
+natu_seka[i]=160/natu_seka[i]+sk;
+sk=natu_seka[i];
+a[i+1]=natu_seka[i];
+}
+var paskut_nata =a[a.length-1];
+zingsnelis = paskut_nata/100;
+zingsnelis2 = 0;
+for(i=1; i<a.length; i++){
+a[i]=a[i]/zingsnelis;
+}
+var natos = [];
+var ventilis = false;
+function paleisti_laikmati(){
+ventilis =!ventilis;
+if(ventilis==false){
+
+tikrinti_rezultata();
+} 
+if(ventilis== true){
+btn_pal.innerHTML="Tikrinti";
+btn_taptap.style.display = "initial";
+sk1 =0;
+lbl_natos.innerHTML = "";
+timer = setInterval(function(){
+sk1++;
+//lbl_rodyti_laika.innerHTML = sk1.toString();
+if(sk1 >1500){
+tikrinti_rezultata();
+}
+},10);
+}
+}
+function natu_sk(){
+natos[sk2] = sk1;
+sk2++;
+}
+function tikrinti_rezultata(){
+clearInterval(timer);
+visos_koordinates = "";
+butinas_natu_sk = a.length;
+natu_sk = natos.length;
+if(butinas_natu_sk>natu_sk){
+visos_koordinates="Per mažai natų";
+klaidu_skaicius=0;
+lbl_natos.innerHTML = visos_koordinates;
+sk1=0;
+sk2=0;
+natos.length = 0;
+}
+else if (butinas_natu_sk<natu_sk){
+visos_koordinates="Per daug natų";
+klaidu_skaicius=0;
+lbl_natos.innerHTML = visos_koordinates;
+sk1=0;
+sk2=0;
+natos.length = 0;
+}
+else {
+sk3 = natos[0];
+for(i=0; i<natu_sk; i++){
+natos[i]-=sk3;
+}
+zingsnelis2 = natos[natos.length-1]/100;
+for(i=0; i<natu_sk; i++){
+natos[i]/=zingsnelis2;
+if((a[i]-natos[i])>4 || (natos[i]-a[i])>4 ){
+klaidu_skaicius++;
+}
+}
+switch (klaidu_skaicius){
+case 0:
+visos_koordinates="Puiku!<br />100%";
+break;
+case 1:
+visos_koordinates="Labai gerai!<br />90%";
+break;
+case 2:
+visos_koordinates="Gerai!<br />80%";
+break;
+case 3:
+visos_koordinates="Patenkinamai<br />70%";
+break;
+case 4:
+visos_koordinates="Reiktų dar pasimokyti<br />60%";
+break;
+case 5:
+visos_koordinates="Prastokai<br />50%";
+break;
+case 6:
+visos_koordinates="Prastai<br />40%";
+break;
+default:
+visos_koordinates= "Visai prastai..<br />Klaidų skaičius net "+klaidu_skaicius.toString();
+}
+
+
+klaidu_skaicius=0;
+lbl_natos.innerHTML = visos_koordinates;
+//alert("la");
+sk1=0;
+sk2=0;
+natos.length = 0;
+}
+ventilis=false;
+btn_pal.innerHTML="Pradėti &gt;&gt;";
+btn_taptap.style.display = "none";
+}
+
+function ivest_natas(){
+nateles = [4,8,8,8,8,4];
+return nateles;
+}
+</script>
+</body>
+
+</html>
